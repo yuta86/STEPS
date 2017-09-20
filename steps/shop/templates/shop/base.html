@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}STEPS{% endblock %}</title>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+</head>
+<body>
+<div id="header">
+    <a href="/" class="logo">STEPS</a>
+
+    {% if request.user.is_authenticated %}
+        <ul class="menu">
+            <li {% if section == "my_kab" %}class="selected"{% endif %}>
+                <a href="{% url "dashboard" %}">Личный кабинет</a>
+            </li>
+            <li {% if section == "my_backet" %}class="selected"{% endif %}>
+                <a href="#">Моя корзина</a>
+            </li>
+            <li {% if section == "my_kupon" %}class="selected"{% endif %}>
+                <a href="#">Мои купоны</a>
+            </li>
+            <li {% if section == "my_writer" %}class="selected"{% endif %}>
+                <a href="#">Мои подписки</a>
+            </li>
+            <li {% if section == "change_pass" %}class="selected"{% endif %}>
+                <a href="{% url "edit" %}">Изменить пароль</a>
+            </li>
+        </ul>
+    {% endif %}
+    <span class="user">
+        {% if request.user.is_authenticated %}
+            Приветствую, {{ request.user.username }},
+            <a href="{% url "logout" %}">Выход</a>
+        {% else %}
+            <a href="{% url "login" %}">Вход</a>
+        {% endif %}
+    </span>
+
+</div>
+<div id="subheader">
+    <div class="cart">
+        {% with total_items=cart|length %}
+            {% if cart|length > 0 %}
+                Ваша корзина:
+                <a href="{% url "cart:cart_detail" %}">
+                    {{ total_items }} тов.
+                    {{ cart.get_total_price }} St.
+                </a>
+            {% else %}
+                Ваша корзина пуста.
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+<div id = "footer">
+    <p>Все права принадлежат разработчикам сайта.</p>
+</div>
+</html>
