@@ -60,7 +60,11 @@ class Cart(object):
         product_id = str(product.id)
         if product_id in self.cart:
             # del self.cart[product_id]
-            self.cart[product_id]['quantity'] = self.cart[product_id]['quantity']-num
+            print("-----------")
+            print(num)
+            self.cart[product_id]['quantity'] = self.cart[product_id]['quantity'] - num
+            if (self.cart[product_id]['quantity'] == 0):
+                del self.cart[product_id]
             self.save()
 
     def save(self):

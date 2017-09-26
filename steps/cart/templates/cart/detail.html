@@ -17,7 +17,9 @@
         </tr>
         </thead>
         <tbody>
+
         {% for item in cart %}
+            {% if item.quantity > 0 %}
             {% with product=item.product %}
                 <tr>
                     <td>
@@ -33,8 +35,8 @@
                     <td>{{ product.name }}</td>
                     <td>{{ item.quantity }}
                     <select name="quantity" id="id_quantity">}
-                        {% for i in range( item.quantity ) %}
-{#                        {% for i in "1234567" %}#}
+{#                        {% for i in range( item.quantity ) %}#}
+                        {% for i in "1234567" %}
                             <option value={{ i }}> {{ i }}</option>
                         {% endfor %}
                      </select>
@@ -50,11 +52,12 @@
                     {#                    </select>#}
 
 
-                    <td><a href="{% url "cart:cart_remove" product.id %}">Удалить</a></td>
+                    <td><a href="{% url "cart:cart_remove" product.id product.id  %}">Удалить</a></td>
                     <td class="num">{{ item.price }} St.</td>
                     <td class="num">{{ item.total_price }} St.</td>
                 </tr>
             {% endwith %}
+            {% endif %}
         {% endfor %}
         <tr class="total">
             <td>Итого:</td>

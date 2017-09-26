@@ -10,9 +10,11 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # email = models.EmailField(unique=True, verbose_name='Email')
     date_of_birth = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
-    city = models.CharField(max_length=30, blank=True,verbose_name="Населённый пункт")
-    photo = models.ImageField(upload_to='users/%Y-%m-%d', blank=True,verbose_name="Фото")
-    #photo = models.ImageField(upload_to='users/', blank=True, verbose_name="Фото")
+    city = models.CharField(max_length=30, blank=True, verbose_name="Населённый пункт")
+    photo = models.ImageField(upload_to='users/%Y-%m-%d', blank=True, verbose_name="Фото")
+    #ip адрес пользователя
+    #ip = models.IPAddressField(verbose_name="IP-адрес")
+    # photo = models.ImageField(upload_to='users/', blank=True, verbose_name="Фото")
     # пол
     sex_choices = (
         ('male', 'мужской'),
@@ -30,13 +32,15 @@ class Profile(models.Model):
         ('unemployed', 'Безработный'),
         ('other', 'Другое'),
     )
-    social_status = models.CharField(max_length=20, choices=social_status_choices, default='other', verbose_name="Социальный статус")
+    social_status = models.CharField(max_length=20, choices=social_status_choices, default='other',
+                                     verbose_name="Социальный статус")
     status_choices = (
         ('blocked', 'Заблокирован'),
         ('activated', 'Активный'),
         ('waits for activation', 'Ожидает активацию'),
     )
-    status = models.CharField(max_length=50, choices=status_choices, default='waits for activation',  verbose_name="Статус")
+    status = models.CharField(max_length=50, choices=status_choices, default='waits for activation',
+                              verbose_name="Статус")
 
     phone = models.CharField(max_length=12, verbose_name="Телефон")  # +7 XXX XXX XXXX
 

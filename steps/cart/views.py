@@ -18,9 +18,10 @@ def cart_add(request, product_id):
     return redirect('cart:cart_detail')
 
 
-def cart_remove(request, product_id):
+def cart_remove(request, product_id, num):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
+    print(num)
     num = 2
     cart.remove(num, product)
     return redirect('cart:cart_detail')
